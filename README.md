@@ -23,4 +23,10 @@ Run program
 
 ./dashmaster
 
+NOT for LOW clusters.
 
+All feedback and support was closed because of idiots.
+
+For those, who think that lowering mileage would increase car's value - BURN IN HELL!
+
+Mileage set up wrong by idiots. This tool is designed to set the mileage back to the original. And for repairing broken dashboards!!!! 
