@@ -47,6 +47,46 @@ jobs:
         with:
           name: SavvyCAN-Windows_x64
           path: package
- 
+  build-wasm:
+      name: WebAssembly (WASM)
+      runs-on: ubuntu-latest  # WebAssembly is better supported on Linux
+  
+      steps:
+        - name: Setup Emscripten SDK (emsdk)
+          uses: mymindstorm/setup-emsdk@v14
+          with:
+            # You can specify a more recent version of emsdk if needed
+            version: 2.0.25
+            actions-cache-folder: 'emsdk-cache'
+  
+        - name: Install Qt for WebAssembly
+          uses: jurplel/install-qt-action@v3
+          with:
+            version: '5.15.2'  # Use Qt version that supports WebAssembly
+            host: 'linux'  # Specify Linux as the host
+            target: 'wasm'  # Target WebAssembly build
+  
+        - name: Clone repository
+          uses: actions/checkout@v3
+  
+        - name: Compile for WebAssembly
+          run: |
+            source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
+          
+          # Configure and compile the project using qmake for WebAssembly
+          /opt/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
+          
+          # Build the project using make (nmake is Windows specific)
+          make
+
+      - name: Package WebAssembly output
+        run: |
+          ls -l
+          ls -l release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DashMaster-WebAssembly
+          path: release
 
           
