@@ -57,7 +57,6 @@ jobs:
           with:
             # You can specify a more recent version of emsdk if needed
             version: 1.38.40
-            actions-cache-folder: 'emsdk-cache2'
         - name: Package WebAssembly output
           run: |
             ls -l
@@ -71,7 +70,6 @@ jobs:
             host: 'linux'  # Specify Linux as the host
             arch: "wasm_32"
             extra: '--autodesktop'
-            cache: true
   
         - name: Clone repository
           uses: actions/checkout@v3
