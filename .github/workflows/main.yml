@@ -76,7 +76,7 @@ jobs:
         - name: Package WebAssembly output
           run: |
             ls -l
-            ls -l /home/runner/work/E34dash/Qt/5.15.2/wasm_32
+            ls -l /home/runner/work/E34dash/Qt/
         - name: Compile for WebAssembly
           run: |
             # source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
