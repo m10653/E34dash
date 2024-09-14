@@ -14,7 +14,10 @@ jobs:
     steps:      
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v3
-
+      - name: setup em
+        uses: lovasoa/setup-emscripten@master
+        with:
+          emscripten-version: '1.38.47'
       - name: Clone
         uses: actions/checkout@v3
       
@@ -28,30 +31,9 @@ jobs:
 
       - name: Package
         run: |
-          mkdir package
-          copy "release/SavvyCAN.exe" package/
-          mkdir package/help
-          copy  help/*.md package/help/
-          mkdir package/help/images
-          copy help/images/*.* package/help/images/
-          mkdir package/examples
-          copy examples/*.* package/examples/          
-          copy "${Env:Qt5_Dir}/bin/Qt5Core.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Gui.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Network.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5PrintSupport.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Qml.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5SerialBus.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5SerialPort.dll" package/
-          copy "${Env:Qt5_Dir}/bin/Qt5Widgets.dll" package/
-          mkdir package/imageformats
-          copy "${Env:Qt5_Dir}/plugins/imageformats/*.*" package/imageformats/
-          mkdir package/platforms
-          copy "${Env:Qt5_Dir}/plugins/platforms/*.*" package/platforms/
-          mkdir package/styles
-          copy "${Env:Qt5_Dir}/plugins/styles/*.*" package/styles/
-          mkdir package/canbus
-          copy "${Env:Qt5_Dir}/plugins/canbus/*.*" package/canbus/
+          em++ --version
+          dir
+          dir build
 
       - uses: actions/upload-artifact@v4
         with:
