@@ -61,7 +61,6 @@ jobs:
         - name: Package WebAssembly output
           run: |
             ls -l
-            ls -l release
             ls -l /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main
         - name: Install Qt for WebAssembly
           uses: jurplel/install-qt-action@v3
