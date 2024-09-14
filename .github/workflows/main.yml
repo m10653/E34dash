@@ -72,21 +72,21 @@ jobs:
         - name: Compile for WebAssembly
           run: |
             source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
-          
-          # Configure and compile the project using qmake for WebAssembly
-          /opt/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
-          
-          # Build the project using make (nmake is Windows specific)
-          make
-
-      - name: Package WebAssembly output
-        run: |
-          ls -l
-          ls -l release
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: DashMaster-WebAssembly
-          path: release
+            
+            # Configure and compile the project using qmake for WebAssembly
+            /opt/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
+            
+            # Build the project using make (nmake is Windows specific)
+            make
+  
+        - name: Package WebAssembly output
+          run: |
+            ls -l
+            ls -l release
+  
+        - uses: actions/upload-artifact@v4
+          with:
+            name: DashMaster-WebAssembly
+            path: release
 
           
