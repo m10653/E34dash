@@ -13,9 +13,14 @@ jobs:
 
     steps: 
       - name: setup em
-        uses: lovasoa/setup-emscripten@master
+        uses: mymindstorm/setup-emsdk@v14
         with:
-          emscripten-version: '2.0.14'     
+        # Make sure to set a version number!
+          version: 2.0.14
+    # This is the name of the cache folder.
+    # The cache folder will be placed in the build directory,
+    #  so make sure it doesn't conflict with anything!
+          actions-cache-folder: 'emsdk-cache'
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v3
         with:
