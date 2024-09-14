@@ -11,13 +11,16 @@ jobs:
     name: Windows x64
     runs-on: windows-2019
 
-    steps:      
-      - name: Prepare Qt Libraries
-        uses: jurplel/install-qt-action@v3
+    steps: 
       - name: setup em
         uses: lovasoa/setup-emscripten@master
         with:
-          emscripten-version: '1.38.47'
+          emscripten-version: '2.0.14'     
+      - name: Prepare Qt Libraries
+        uses: jurplel/install-qt-action@v3
+        with:
+           version: '6.2.*'
+     
       - name: Clone
         uses: actions/checkout@v3
       
