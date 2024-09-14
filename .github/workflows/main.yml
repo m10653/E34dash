@@ -23,6 +23,8 @@ jobs:
           actions-cache-folder: 'emsdk-cache'
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v3
+        with:
+           actions-cache-folder: 'emsdk-cache'
      
       - name: Clone
         uses: actions/checkout@v3
@@ -31,14 +33,14 @@ jobs:
         shell: cmd
         run: | 
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-
+          qmake CONFIG += wasm
           qmake CONFIG+=release dashmaster.pro
           nmake /C
 
       - name: Package
         run: |
           dir
-          dir build
+          dir release
 
       - uses: actions/upload-artifact@v4
         with:
