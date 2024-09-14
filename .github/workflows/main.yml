@@ -56,12 +56,12 @@ jobs:
           uses: mymindstorm/setup-emsdk@v14
           with:
             # You can specify a more recent version of emsdk if needed
-            version: 1.38.40
-            actions-cache-folder: 'emsdk-cache'
+            version: 1.38.16
+            actions-cache-folder: 'emsdk-cache2'
         - name: Package WebAssembly output
           run: |
             ls -l
-            ls -l /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main
+            # ls -l /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main
             emcc -v
             em++ -v
         - name: Install Qt for WebAssembly
