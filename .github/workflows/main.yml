@@ -84,7 +84,7 @@ jobs:
             # ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
             # Configure and compile the project using qmake for WebAssembly
             
-            /home/runner/work/E34dash/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release QMAKE_LFLAGS+=-s ERROR_ON_UNDEFINED_SYMBOLS=0  dashmaster.pro
+            /home/runner/work/E34dash/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
             
             # Build the project using make (nmake is Windows specific)
             make 
