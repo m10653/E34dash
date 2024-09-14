@@ -66,7 +66,7 @@ jobs:
         - name: Install Qt for WebAssembly
           uses: jurplel/install-qt-action@v3
           with:
-            version: '6.2.*'  # Use Qt version that supports WebAssembly
+            version: '6.2.4'  # Use Qt version that supports WebAssembly
             host: 'linux'  # Specify Linux as the host
             arch: "wasm_32"
             extra: '--autodesktop'
@@ -76,7 +76,7 @@ jobs:
         - name: Package WebAssembly output
           run: |
             ls -l
-            ls -l /home/runner/work/E34dash/Qt/
+            ls -l /home/runner/work/E34dash/Qt/6.2.4
         - name: Compile for WebAssembly
           run: |
             # source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
@@ -84,7 +84,7 @@ jobs:
             # ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
             # Configure and compile the project using qmake for WebAssembly
             
-            /home/runner/work/E34dash/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
+            /home/runner/work/E34dash/Qt/6.2.4/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
             
             # Build the project using make (nmake is Windows specific)
             make 
@@ -93,7 +93,7 @@ jobs:
           run: |
             ls -l
             ls -l release
-            ls -l /home/runner/work/E34dash/Qt/5.15.2
+            ls -l /home/runner/work/E34dash/Qt/6.2.4
   
         - uses: actions/upload-artifact@v4
           with:
