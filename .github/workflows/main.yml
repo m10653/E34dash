@@ -69,6 +69,7 @@ jobs:
             host: 'linux'  # Specify Linux as the host
             arch: "wasm_32"
             extra: '--autodesktop'
+            cache: true
   
         - name: Clone repository
           uses: actions/checkout@v3
