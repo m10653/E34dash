@@ -33,8 +33,9 @@ jobs:
         shell: cmd
         run: | 
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          qmake CONFIG+= configure -no-warnings-are-errors -xplatform wasm-emscripten -platform win32-g++ -nomake examples -prefix %CD%\qtbase
+          
           qmake CONFIG+=release dashmaster.pro
+          qmake CONFIG+= -no-warnings-are-errors -xplatform wasm-emscripten -platform win32-g++ -nomake examples -prefix %CD%\qtbase
           nmake /C
 
       - name: Package
