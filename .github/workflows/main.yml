@@ -73,7 +73,6 @@ jobs:
         - name: Package WebAssembly output
           run: |
             ls -l
-            ls -l release
             ls -l /home/runner/work/E34dash/Qt/5.15.2
         - name: Compile for WebAssembly
           run: |
