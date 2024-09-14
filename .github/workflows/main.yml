@@ -16,15 +16,13 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
         with:
         # Make sure to set a version number!
-          version: 2.0.14
+          version: 1.38.16
     # This is the name of the cache folder.
     # The cache folder will be placed in the build directory,
     #  so make sure it doesn't conflict with anything!
           actions-cache-folder: 'emsdk-cache'
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v3
-        with:
-           version: '6.2.*'
      
       - name: Clone
         uses: actions/checkout@v3
