@@ -56,7 +56,7 @@ jobs:
           uses: mymindstorm/setup-emsdk@v14
           with:
             # You can specify a more recent version of emsdk if needed
-            version: 1.38.16
+            version: 1.38.40
             actions-cache-folder: 'emsdk-cache2'
         - name: Package WebAssembly output
           run: |
