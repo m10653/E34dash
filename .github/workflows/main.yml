@@ -68,6 +68,7 @@ jobs:
             version: '5.15.2'  # Use Qt version that supports WebAssembly
             host: 'linux'  # Specify Linux as the host
             arch: "wasm_32"
+            extra: '--autodesktop'
   
         - name: Clone repository
           uses: actions/checkout@v3
@@ -79,7 +80,7 @@ jobs:
           run: |
             # source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
             # source /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main/emsdk_env.sh
-            ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
+            # ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
             # Configure and compile the project using qmake for WebAssembly
             /opt/Qt/5.15.2/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
             
