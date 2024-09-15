@@ -85,19 +85,26 @@ jobs:
             # Configure and compile the project using qmake for WebAssembly
             
             /home/runner/work/E34dash/Qt/6.2.4/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
-            
-            # Build the project using make (nmake is Windows specific)
             mkdir build
-            cd build
-            make -C ../
+            # Build the project using make (nmake is Windows specific)
+            make
+            cp -r *.wasm *.html *.js *svg build/
+
+            
   
         - name: Package WebAssembly output
           run: |
             ls -l
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./build # Adjust this to your build output directory
+            publish_branch: gh-pages
   
         - uses: actions/upload-artifact@v4
           with:
             name: DashMaster-WebAssembly
-            path: ./
+            path: ./build
 
           
