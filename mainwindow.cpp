@@ -228,31 +228,33 @@ void MainWindow::on_chkSwapBytes_toggled(bool checked)
 	update_view();
 }
 
+
 void MainWindow::on_butOpen_clicked()
 {
-	QString	filename = QFileDialog::getOpenFileName( this, tr("Open file...") );
-	if ( filename.isEmpty() )
-		return;
+    QFileDialog::getOpenFileContent(tr("Binary Files (*.bin)"),
+    [this](const QString &fileName, const QByteArray &fileContent)
+    {
+        if (fileName.isEmpty() || fileContent.isEmpty())
+            return;
 
-	QFile file( filename );
-	if ( !file.open( QIODevice::ReadOnly ) )
-		return;
-	m_info.m_size = file.read( (char *)m_info.getDump(), 256 );
+        m_info.m_size = qMin(fileContent.size(), 256); // Limit read size to 256 bytes
+        memcpy(m_info.getDump(), fileContent.constData(), m_info.m_size);
 
-	if ( ui->chkSwapBytes->isChecked() )
-	{
-		unsigned char tmp;
-		unsigned i;
-		for ( i = 0; i < m_info.m_size; i += 2 )
-		{
-			tmp = m_info.getData(i);
-			m_info.setData( i, m_info.getData(i + 1) );
-			m_info.setData( i + 1, tmp );
-		}
-	}
+        if (ui->chkSwapBytes->isChecked())
+        {
+            unsigned char tmp;
+            unsigned i;
+            for (i = 0; i < m_info.m_size; i += 2)
+            {
+                tmp = m_info.getData(i);
+                m_info.setData(i, m_info.getData(i + 1));
+                m_info.setData(i + 1, tmp);
+            }
+        }
 
-	m_info.parseData();
-	update_view();
+        m_info.parseData();
+        update_view();
+    });
 }
 
 void MainWindow::saveFile( bool swap )
