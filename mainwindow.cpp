@@ -257,27 +257,29 @@ void MainWindow::on_butOpen_clicked()
     });
 }
 
-void MainWindow::saveFile( bool swap )
+void MainWindow::saveFile(bool swap)
 {
-	QString	filename = QFileDialog::getSaveFileName( this, tr("Save file...") );
-	if ( filename.isEmpty() )
-		return;
+    QByteArray fileContent;
+    if (swap)
+    {
+        // Prepare swapped data for saving
+        for (unsigned i = 0; i < m_info.m_size; i += 2)
+        {
+            fileContent.append((char)m_info.getData(i + 1));
+            fileContent.append((char)m_info.getData(i));
+        }
+    }
+    else
+    {
+        // Copy original data for saving
+        fileContent.append((const char*)m_info.getDump(), m_info.m_size);
+    }
 
-	QFile file( filename );
-	if ( !file.open( QIODevice::WriteOnly ) )
-		return;
+    // Provide a file name hint (optional)
+    QString fileNameHint = "output.bin";
 
-	if ( swap )
-	{
-		unsigned i;
-		for ( i = 0; i < m_info.m_size; i += 2 )
-		{
-			file.putChar( (char)m_info.getData(i + 1) );
-			file.putChar( (char)m_info.getData(i) );
-		}
-	} else {
-		file.write( (const char *)m_info.getDump(), m_info.m_size );
-	}
+    // Use QFileDialog::saveFileContent to save the file
+    QFileDialog::saveFileContent(fileContent, fileNameHint);
 }
 
 void MainWindow::on_butSave_clicked()
