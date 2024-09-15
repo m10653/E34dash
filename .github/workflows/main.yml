@@ -88,7 +88,8 @@ jobs:
             
             # Build the project using make (nmake is Windows specific)
             mkdir build
-            make -C ./build
+            cd build
+            make -C ../
   
         - name: Package WebAssembly output
           run: |
