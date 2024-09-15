@@ -87,7 +87,8 @@ jobs:
             /home/runner/work/E34dash/Qt/6.2.4/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
             
             # Build the project using make (nmake is Windows specific)
-            make 
+            mkdir build
+            make -C ./build
   
         - name: Package WebAssembly output
           run: |
