@@ -518,7 +518,7 @@ void ClusterInfo::updateSimple()
 	m_odometer -= ODOMETER_OFFSET;
 	//qDebug() << "Milage:" << m_odometer << "km";
 
-	m_partnum = getData(0x40, 0xF) + '0';
+	m_partnum = QChar(getData(0x40, 0xF) + '0');
 	m_partnum += QString("%1").arg( getData(0x41), 2, 16, QChar('0') );
 	m_partnum += QString("%1").arg( getData(0x3E), 2, 16, QChar('0') );
 	m_partnum += QString("%1").arg( getData(0x3F), 2, 16, QChar('0') );
@@ -526,7 +526,7 @@ void ClusterInfo::updateSimple()
 
 	m_code = QString("%1").arg( getData(0x36), 2, 16, QChar('0') );
 	m_code += QString("%1").arg( getData(0x37), 2, 16, QChar('0') );
-	m_code += getData(0x35, 0xF) + '0';
+	m_code += QChar(getData(0x35, 0xF) + '0');
 	m_code = m_code.toUpper();
 
 	m_tankcurve = -1;

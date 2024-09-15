@@ -1,0 +1,101 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "master"
+      
+jobs:
+          
+  buildwindows:
+    name: Windows x64
+    runs-on: windows-2019
+
+    steps: 
+      - name: setup em
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+        # Make sure to set a version number!
+          version: 1.38.16
+    # This is the name of the cache folder.
+    # The cache folder will be placed in the build directory,
+    #  so make sure it doesn't conflict with anything!
+          actions-cache-folder: 'emsdk-cache'
+      - name: Prepare Qt Libraries
+        uses: jurplel/install-qt-action@v3
+        with:
+           cache: 'qtf'
+     
+      - name: Clone
+        uses: actions/checkout@v3
+      
+      - name: Compile
+        shell: cmd
+        run: | 
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          
+          qmake CONFIG+=release dashmaster.pro
+          qmake CONFIG+= -no-warnings-are-errors -xplatform wasm-emscripten -platform win32-g++ -nomake examples -prefix %CD%\qtbase
+          nmake /C
+
+      - name: Package
+        run: |
+          dir
+          dir release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SavvyCAN-Windows_x64
+          path: package
+  build-wasm:
+      name: WebAssembly (WASM)
+      runs-on: ubuntu-latest  # WebAssembly is better supported on Linux
+  
+      steps:
+        - name: Setup Emscripten SDK (emsdk)
+          uses: mymindstorm/setup-emsdk@v14
+          with:
+            # You can specify a more recent version of emsdk if needed
+            version: 2.0.14
+        - name: Package WebAssembly output
+          run: |
+            ls -l
+            # ls -l /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main
+            emcc -v
+            em++ -v
+        - name: Install Qt for WebAssembly
+          uses: jurplel/install-qt-action@v3
+          with:
+            version: '6.2.4'  # Use Qt version that supports WebAssembly
+            host: 'linux'  # Specify Linux as the host
+            arch: "wasm_32"
+            extra: '--autodesktop'
+  
+        - name: Clone repository
+          uses: actions/checkout@v3
+        - name: Package WebAssembly output
+          run: |
+            ls -l
+            ls -l /home/runner/work/E34dash/Qt/6.2.4
+        - name: Compile for WebAssembly
+          run: |
+            # source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
+            # source /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main/emsdk_env.sh
+            # ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
+            # Configure and compile the project using qmake for WebAssembly
+            
+            /home/runner/work/E34dash/Qt/6.2.4/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
+            
+            # Build the project using make (nmake is Windows specific)
+            make 
+  
+        - name: Package WebAssembly output
+          run: |
+            ls -l
+  
+        - uses: actions/upload-artifact@v4
+          with:
+            name: DashMaster-WebAssembly
+            path: ./
+
+          
