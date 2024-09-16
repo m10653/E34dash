@@ -896,6 +896,29 @@
           </item>
          </layout>
         </item>
+        <action name="actionOpen">
+        <property name="text">
+            <string>&amp;Open</string>
+        </property>
+        </action>
+        <action name="actionSave_As">
+        <property name="text">
+            <string>&amp;Save As...</string>
+        </property>
+        </action>
+        <action name="actionE_xit">
+        <property name="text">
+            <string>E&amp;xit</string>
+        </property>
+        </action>
+        <action name="action_Swap_bytes">
+        <property name="checkable">
+            <bool>true</bool>
+        </property>
+        <property name="text">
+            <string>&amp;Swap bytes</string>
+        </property>
+        </action>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
