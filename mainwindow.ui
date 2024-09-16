@@ -110,7 +110,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Simple</string>
+        <string>Editor</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
@@ -900,7 +900,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Expert</string>
+        <string>Details</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
