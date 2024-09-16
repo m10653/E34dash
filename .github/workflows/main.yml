@@ -23,8 +23,6 @@ jobs:
           actions-cache-folder: 'emsdk-cache'
       - name: Prepare Qt Libraries
         uses: jurplel/install-qt-action@v3
-        with:
-           cache: 'qtf'
      
       - name: Clone
         uses: actions/checkout@v3
@@ -57,12 +55,6 @@ jobs:
           with:
             # You can specify a more recent version of emsdk if needed
             version: 2.0.14
-        - name: Package WebAssembly output
-          run: |
-            ls -l
-            # ls -l /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main
-            emcc -v
-            em++ -v
         - name: Install Qt for WebAssembly
           uses: jurplel/install-qt-action@v3
           with:
@@ -73,15 +65,9 @@ jobs:
   
         - name: Clone repository
           uses: actions/checkout@v3
-        - name: Package WebAssembly output
-          run: |
-            ls -l
-            ls -l /home/runner/work/E34dash/Qt/6.2.4
         - name: Compile for WebAssembly
           run: |
-            # source /opt/emsdk/emsdk_env.sh  # Load Emscripten environment
-            # source /home/runner/work/E34dash/E34dash/emsdk-cache/emsdk-main/emsdk_env.sh
-            # ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
+
             # Configure and compile the project using qmake for WebAssembly
             
             /home/runner/work/E34dash/Qt/6.2.4/wasm_32/bin/qmake CONFIG+=release dashmaster.pro
@@ -89,12 +75,8 @@ jobs:
             # Build the project using make (nmake is Windows specific)
             make
             cp -r *.wasm *.html *.js *svg build/
-
+            cp ./build/dashmaster.html ./build/index.html
             
-  
-        - name: Package WebAssembly output
-          run: |
-            ls -l
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v3
           with:
