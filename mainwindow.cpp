@@ -231,7 +231,7 @@ void MainWindow::on_chkSwapBytes_toggled(bool checked)
 
 void MainWindow::on_butOpen_clicked()
 {
-    QFileDialog::getOpenFileContent(tr("Binary Files (*.bin)"),
+    QFileDialog::getOpenFileContent(tr(""),
     [this](const QString &fileName, const QByteArray &fileContent)
     {
         if (fileName.isEmpty() || fileContent.isEmpty())
@@ -276,7 +276,7 @@ void MainWindow::saveFile(bool swap)
     }
 
     // Provide a file name hint (optional)
-    QString fileNameHint = "output.bin";
+    QString fileNameHint = "";
 
     // Use QFileDialog::saveFileContent to save the file
     QFileDialog::saveFileContent(fileContent, fileNameHint);
