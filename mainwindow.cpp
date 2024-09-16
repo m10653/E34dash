@@ -276,10 +276,10 @@ void MainWindow::saveFile(bool swap)
     }
 
     // Provide a file name hint (optional)
-    QString fileNameHint = "*.bin";
+    QString fileNameHint = m_info.m_vin + ".bin";
 
     // Use QFileDialog::saveFileContent to save the file
-    QFileDialog::saveFileContent(fileContent);
+    QFileDialog::saveFileContent(fileContent,fileNameHint);
 }
 
 void MainWindow::on_butSave_clicked()
